@@ -1,0 +1,10 @@
+nintendoclients==4.4.0
+pycryptodome>=3.20
+# anynet is a transitive dep of nintendoclients 4.4.0 (which constrains it to
+# ~=1.1). Pin it: anynet 1.2.1 fails to import on Python 3.12+ — anynet/tls.py
+# annotates a param as list[TLSCertificate] before that name is defined and has
+# no `from __future__ import annotations`, so the annotation is evaluated at
+# def-time and raises NameError. This breaks the server itself (prudp/codec.py
+# -> nintendo.nex.prudp -> anynet.tls), not just tests. 1.1.0 predates the bug.
+anynet==1.1.0
+dnslib>=0.9.26

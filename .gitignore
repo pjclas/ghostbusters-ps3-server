@@ -1,0 +1,36 @@
+# =============================================================================
+# This directory is a large reverse-engineering workspace. We commit ONLY the
+# server package (ghostbusters_server/). Everything else — game binaries (EBOOT,
+# ELF/SELF, PODs), memory dumps (*.bin), pcaps, Ghidra projects, screenshots,
+# save states, decomp output — stays local and is NEVER pushed (copyright + size).
+#
+# Strategy: ignore every top-level entry, then re-include only what we ship.
+# =============================================================================
+/*
+!/.gitignore
+!/ghostbusters_server/
+!/README.md
+!/LICENSE
+
+# --- Python / runtime artifacts (apply anywhere, incl. inside the server pkg) ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# --- IDE / editor config (local only) ---
+.idea/
+.vscode/
+
+# --- Live SQLite database + WAL sidecars (server state, not source) ---
+*.db
+*.db-wal
+*.db-shm
+
+# --- Local secrets: game-extracted keys, never committed (see KEYS_README.md) ---
+# The .example template IS committed; the real local_keys.py is not.
+ghostbusters_server/local_keys.py
+
+# --- Developer tests: kept local, not shipped. They're maintainer regression
+# tests against captured wire fixtures (some depend on local-only RE tooling),
+# not something an end-user runs to install/host the server. ---
+ghostbusters_server/tests/
